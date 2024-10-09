@@ -19,6 +19,7 @@
   "homepage": "https://github.com/fabionolasco/personal-budget#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.20.0"
+    "express": "^4.20.0",
+    "mongoose": "^8.7.1"
   }
 }

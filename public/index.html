@@ -312,15 +312,23 @@ polyline{
 
         function getBudget() {
             axios.get('http://localhost:3000/budget')
-            .then(function (res) {
-                for (var i = 0; i < res.data.myBudget.length; i++) {
-                    dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
-                    dataSource.labels[i] = res.data.myBudget[i].title;
-                }
-                createChart();
-                createD3Chart(res.data.myBudget);
-            });
+                .then(function (res) {
+                    if (Array.isArray(res.data)) { 
+                        for (var i = 0; i < res.data.length; i++) {
+                            dataSource.datasets[0].data[i] = res.data[i].budget;
+                            dataSource.labels[i] = res.data[i].title;
+                        }
+                        createChart();
+                        createD3Chart(res.data);
+                    } else {
+                        console.error("Unexpected API response format", res.data);
+                    }
+                })
+                .catch(function (error) {
+                    console.error("Error fetching budget data", error);
+                });
         }
+
 
         getBudget();
 
